@@ -1,0 +1,451 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #ffffff;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    /* ✅ Make it fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;  
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    transition: background 0.4s ease, box-shadow 0.3s ease;
+    color: white;
+}
+
+.navbar.scrolled {
+    background: #001f3f;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #00aaff;
+}
+
+.navbar nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+nav .links {
+    display: flex;
+}
+
+nav .links .link a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 0 15px;
+    transition: 0.3linear;
+}
+
+nav .links .link a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 3px;
+    background-color: rgb(7, 113, 219);
+    transition: 0.3s linear;
+}
+
+nav .links .link a:hover::before,
+nav .links .link a:hover {
+    width: 100%;
+    color: rgb(7, 113, 219);
+
+    text-shadow: 0 0 40px rgba(0, 206, 255, 1);
+
+}
+
+nav .buttons {
+    display: flex;
+    width: 250px;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.buttons.btn {
+    margin: 0 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.buttons .btn button {
+    width: 150px;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    border-radius: 8px;
+    background-color: rgba(7, 113, 219, 0.945);
+    box-shadow: 0 0 40px rgba(3, 188, 234, 0.948);
+    transition: 0.2s linear;
+}
+
+.buttons .btn button:hover {
+    color: rgb(7, 113, 219);
+    background-color: white;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* space between links and login button */
+}
+
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.mySwiper {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+    z-index: 1;
+}
+
+.section {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.content {
+    font-family: 'Arial', 'Poppins', sans-serif;
+    margin-top: 5%;
+    margin-right: 50%;
+    width: 40%;
+    color: white;
+}
+
+.content h1 {
+    font-size: 4rem;
+    text-shadow: 0 0 7px white;
+}
+
+.content h2 {
+    font-size: 4rem;
+    text-shadow: 0 0 7px white;
+}
+
+.content h2 span {
+    color: rgb(7, 113, 219);
+    text-shadow: 0 0 7px;
+}
+
+.content p {
+    width: 60%;
+    margin: 10px 0;
+}
+
+.content button {
+    width: 40%;
+    height: 7vh;
+    border-radius: 10px;
+    background-color: rgb(7, 113, 219);
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700px;
+    transition: 0.2s linear;
+    margin-top: 10px;
+}
+
+.content button:hover {
+    font-size: 1.3rem;
+    background-color: transparent;
+    color: rgb(7, 113, 219);
+    border: 1px solid rgb(7, 113, 219);
+}
+
+
+.hero-content {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    z-index: 10;
+    color: white;
+    max-width: 600px;
+    animation: fadeInUp 1.5s ease;
+}
+
+.hero-content h1 {
+    font-size: 56px;
+}
+
+.hero-content h1 span {
+    color: #00aaff;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.hero-content .btn {
+    background: #007bff;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.hero-content .btn:hover {
+    background: #0056b3;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Features */
+.features {
+    padding: 60px 40px;
+    text-align: center;
+    background: #f5f9ff;
+}
+
+.features h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.feature-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.feature-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card img {
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+/* Testimonials */
+.testimonials {
+    background: #fff;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.testimonial-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.testimonial-card {
+    background: #e8f4ff;
+    padding: 20px;
+    width: 250px;
+    border-radius: 10px;
+    font-style: italic;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-card span {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #0077cc;
+}
+
+/* FAQ Section */
+.faq {
+    padding: 60px 40px;
+    background: #f0f0f0;
+}
+
+.faq h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.faq details {
+    max-width: 700px;
+    margin: 15px auto;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.faq summary {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.faq p {
+    margin-top: 10px;
+    color: #444;
+}
+
+/* Footer */
+footer {
+    background: #001f3f;
+    color: white;
+    padding: 40px 20px;
+}
+
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-grid div {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-grid h3,
+.footer-grid h4 {
+    margin-bottom: 10px;
+    color: #00aaff;
+}
+
+.footer-grid ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-grid ul li {
+    margin: 5px 0;
+}
+
+.footer-grid a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-grid a:hover {
+    color: #00aaff;
+}
+
+footer p {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+    }
+
+    .feature-grid,
+    .testimonial-grid,
+    .footer-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-content {
+        left: 20px;
+        right: 20px;
+    }
+}

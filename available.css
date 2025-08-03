@@ -1,0 +1,97 @@
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #f7f8fc, #e6f7ff);
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .search-summary {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+
+      .bus-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .bus-info {
+        flex: 2;
+      }
+
+      .bus-info h3 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: #ff4e4e;
+      }
+
+      .bus-info p {
+        margin: 4px 0;
+        font-size: 14px;
+      }
+
+      .bus-meta {
+        flex: 1;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .bus-meta .price {
+        font-size: 22px;
+        font-weight: bold;
+        color: #2f80ed;
+      }
+
+      .bus-meta button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        background: #2f80ed;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .bus-meta button:hover {
+        background: #255ecf;
+      }
+
+      @media(max-width:600px) {
+        .bus-card {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .bus-meta {
+          width: 100%;
+          text-align: left;
+          margin-top: 10px;
+        }
+      }

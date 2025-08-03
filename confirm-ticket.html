@@ -1,0 +1,376 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Confirm Ticket</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f7f8fc, #e6f7ff);
+      margin: 0; padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #ff4e4e;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .bus-info {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    .seat-map {
+      display: grid;
+      grid-template-columns: repeat(4, 50px);
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .seat {
+      width: 50px; height: 50px;
+      background: #e0e0e0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+    .seat.available:hover {
+      background: #ff4e4e;
+      color: white;
+    }
+    .seat.selected {
+      background: #ff4e4e;
+      color: white;
+    }
+    .seat.occupied {
+      background: #888;
+      cursor: not-allowed;
+      color: white;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="email"], input[type="tel"] {
+      padding: 10px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button.submit-btn {
+      padding: 15px;
+      background: #ff4e4e;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button.submit-btn:hover {
+      background: #c92c2c;
+    }
+    .note {
+      font-size: 14px;
+      color: #666;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Confirm Your Ticket</h2>
+    <div class="bus-info" id="busInfo"></div>
+
+    <div class="note">Select your seat(s) below:</div>
+    <div class="seat-map" id="seatMap"></div>
+
+    <form id="confirmForm">
+      <label for="name">Name</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" required />
+
+      <button type="submit" class="submit-btn">Confirm Booking</button>
+    </form>
+  </div>
+
+  <script>
+    const seatMap = document.getElementById('seatMap');
+    const busInfoDiv = document.getElementById('busInfo');
+    const form = document.getElementById('confirmForm');
+
+    // Load bus details from localStorage
+    const busName = localStorage.getItem('selectedBus') || 'Bus Name';
+    const busPrice = localStorage.getItem('busPrice') || 'Price';
+
+    busInfoDiv.textContent = `Bus: ${busName} | Price per seat: ₹${busPrice}`;
+
+    // Seat layout: 4 columns x 10 rows = 40 seats labeled 1-40
+    const totalSeats = 40;
+    let selectedSeats = [];
+
+    // Generate random occupied seats (~30% occupied)
+    const occupiedSeats = new Set();
+    while (occupiedSeats.size < 12) {
+      occupiedSeats.add(Math.floor(Math.random() * totalSeats) + 1);
+    }
+
+    function createSeat(number) {
+      const seat = document.createElement('div');
+      seat.classList.add('seat');
+      if (occupiedSeats.has(number)) {
+        seat.classList.add('occupied');
+      } else {
+        seat.classList.add('available');
+        seat.addEventListener('click', () => {
+          if (selectedSeats.includes(number)) {
+            selectedSeats = selectedSeats.filter(s => s !== number);
+            seat.classList.remove('selected');
+          } else {
+            selectedSeats.push(number);
+            seat.classList.add('selected');
+          }
+        });
+      }
+      seat.textContent = number;
+      return seat;
+    }
+
+    // Render seats
+    for(let i=1; i<=totalSeats; i++) {
+      seatMap.appendChild(createSeat(i));
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (selectedSeats.length === 0) {
+        alert('Please select at least one seat.');
+        return;
+      }
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const phone = form.phone.value.trim();
+
+      // You can add more validation here
+
+      alert(`Ticket booked successfully!\n\nBus: ${busName}\nSeats: ${selectedSeats.join(', ')}\nName: ${name}`);
+
+      // Clear form & selection
+      form.reset();
+      selectedSeats = [];
+      document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove('selected'));
+    });
+  </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Confirm Ticket</title>
+  <link rel="stylesheet" href="nav-bar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="confirm-ticket.css">
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header class="navbar" style="background-color: #001f3f;">
+    <div class="logo">Pari<span>vahan</span></div>
+    <nav>
+
+      <div class="links">
+        <div class="link"><a href="index.html">Home</a></div>
+        <div class="link"><a href="booking.html">Service</a></div>
+        <div class="link"><a href="">Contact</a></div>
+        <div class="link"><a href="">Blog</a></div>
+      </div>
+    </nav>
+
+    <div class="buttons" style="visibility: hidden;">
+      <div class="btn"><button id="Register" onclick="window.location.href='web.html'">Login</button>
+      </div>
+    </div>
+
+
+  </header>
+
+  <div class="container">
+    <h2>Confirm Your Ticket</h2>
+
+    <div class="info" id="busInfo" sty>Loading bus info...</div>
+    <div class="info" id="routeInfo">Loading route info...</div>
+    <h2>Choose Your Seat</h2>
+    <div class="seat-map" id="seatMap"></div>
+
+    <div class="price-info" id="priceInfo">Total Price: ₹0</div>
+
+    <form id="confirmForm">
+      <label for="payment">Select Payment Method</label>
+      <select id="payment" required>
+        <option value="" disabled selected>Select payment method</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+        <option value="UPI">UPI</option>
+        <option value="Net Banking">Net Banking</option>
+        <option value="Cash On Board">Cash On Board</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Confirm Booking</button>
+    </form>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Parivahan</h3>
+        <p>Reliable. Safe. Fast travel across India.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="booking.html">Service</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Follow Us <span style="color: white;"> @zeel_patel_224</span></h4>
+        <br>
+        <p>Facebook | Instagram | Twitter</p>
+      </div>
+    </div>
+    <p class="copyright">© 2025 Parivahan. All rights reserved. Managed by Zeel Rupapara.</p>
+  </footer>
+
+  <script>
+    const seatMap = document.getElementById('seatMap');
+    const busInfoDiv = document.getElementById('busInfo');
+    const routeInfoDiv = document.getElementById('routeInfo');
+    const priceInfo = document.getElementById('priceInfo');
+    const form = document.getElementById('confirmForm');
+
+    // Fetch saved data from localStorage
+    const busName = localStorage.getItem('selectedBus') || 'Default Bus';
+    const busPrice = parseFloat(localStorage.getItem('busPrice')) || 0.00; // default price
+    const departure = localStorage.getItem('departure') || 'Unknown Departure';
+    const destination = localStorage.getItem('destination') || 'Unknown Destination';
+
+    busInfoDiv.innerHTML =` <span class="bus_name">Bus:</span> ${busName}`;
+    routeInfoDiv.innerHTML = ` <span class="bus_name">Route:</span>  ${departure} → ${destination}`;
+
+    const totalSeats = 40;
+    let selectedSeats = [];
+
+    // Generate random occupied seats (~30%)
+    const occupiedSeats = new Set();
+    while (occupiedSeats.size < 12) {
+      occupiedSeats.add(Math.floor(Math.random() * totalSeats) + 1);
+    }
+
+    // Update the total price based on selected seats
+    function updatePrice() {
+      const total = selectedSeats.length * busPrice;
+      priceInfo.textContent = `Total Price: ₹${total}`;
+    }
+
+    // Create a seat element for each seat number
+    function createSeat(number) {
+      const seat = document.createElement('div');
+      seat.classList.add('seat');
+      if (occupiedSeats.has(number)) {
+        seat.classList.add('occupied');
+        seat.title = 'Occupied';
+      }
+      else {
+        seat.classList.add('available');
+        seat.title = 'Available';
+        seat.addEventListener('click', () => {
+          if (selectedSeats.includes(number)) {
+            selectedSeats = selectedSeats.filter(s => s !== number);
+            seat.classList.remove('selected');
+          } else {
+            selectedSeats.push(number);
+            seat.classList.add('selected');
+          }
+          updatePrice();
+        });
+      }
+      seat.textContent = number;
+      return seat;
+    }
+
+    // Initialize seats
+    for (let i = 1; i <= totalSeats; i++) {
+      seatMap.appendChild(createSeat(i));
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (selectedSeats.length === 0) {
+        alert('Please select at least one seat.');
+        return;
+      }
+      const paymentMethod = form.payment.value;
+      if (!paymentMethod) {
+        alert('Please select a payment method.');
+        return;
+      }
+
+      alert(`Ticket booked successfully!\n
+Bus: ${busName}
+Route: ${departure} → ${destination}
+Seat No: ${selectedSeats.join(', ')}
+Total Price: ₹${selectedSeats.length * busPrice}
+Payment Method: ${paymentMethod}
+      `);
+      window.location.href = "ticket.html";
+
+
+
+      // Reset selections and form
+      selectedSeats = [];
+      document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove('selected'));
+      updatePrice();
+      form.reset();
+    });
+
+    // Initial price update
+    updatePrice();
+
+
+  </script>
+</body>
+
+</html>

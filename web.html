@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parivahan - Bus Booking</title>
+  <link rel="stylesheet" href="web.css" />
+  <link rel="stylesheet" href="nav-bar.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Pari<span>vahan</span></div>
+    <nav>
+
+      <div class="links">
+        <div class="link"><a href="index.html">Home</a></div>
+        <div class="link"><a href="booking.html">Service</a></div>
+        <div class="link"><a href="">Contact</a></div>
+        <div class="link"><a href="">Blog</a></div>
+      </div>
+
+
+    </nav>
+    <div class="buttons" id="register">
+      <div class="nav-btn"><button></button>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- Hero Section with Swiper -->
+  <section class="hero-slider">
+
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/029/315/458/small_2x/moving-forward-bus-travels-on-road-embracing-travel-time-ambiance-ai-generated-photo.jpg">
+        </div>
+
+        <div class="swiper-slide"><img
+            src="https://img.freepik.com/premium-photo/truck-bus-electric-car-future-rides-road-tunnel-generative-ai_618582-373.jpg"
+            alt="Bus 2">
+        </div>
+
+        <div class="swiper-slide">
+          <img
+            src="https://img.freepik.com/premium-photo/truck-bus-electric-car-future-rides-road-tunnel-generative-ai_618582-373.jpg"
+            alt="Bus 2">
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+    <!-- Swiper Controls -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+
+    <div class="hero-wrapper">
+      <div class="hero-inner">
+
+        <div class="content">
+          <div class="hero-left">
+            <h1>Welcome to</h1>
+            <h2>Pari<span>vahan</span></h2>
+            <p>Zeel bus booking welcomes you and wishes you a happy journey. Give your feedback or experience with Zeel
+              Bus Booking.</p>
+            <div class="main-btn" onclick="window.location.href='booking.html'">
+              <button>Buy Your Ticket</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="hero-right">
+          <div class="form-box" id="signup" style="display:none;">
+            <div class="form-title">
+              <h3>Register</h3>
+            </div>
+            <form method="post" action="index.html">
+              <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="fName" placeholder="First Name" required>
+                <label>First Name</label>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required>
+                <label>Email</label>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Password" required>
+                <label>Password</label>
+              </div>
+              <input type="submit" class="btn" value="Sign Up" name="signUp">
+            </form>
+            <p class="or">----------or--------</p>
+            <div class="icons">
+              <i class="fab fa-google"></i>
+              <i class="fab fa-facebook"></i>
+            </div>
+            <div class="links">
+              <p>Already have an account?</p>
+              <a id="signInButton" style="font-size: 18px;">Sign In</a>
+            </div>
+          </div>
+
+          <div class="form-box" id="signIn">
+            <div class="form-title">
+              <h3>Sign In</h3>
+            </div>
+            <form method="post" action="index.html">
+              <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required>
+                <label>Email</label>
+              </div>
+              <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Password" required>
+                <label>Password</label>
+              </div>
+              <p class="recover"><a href="#">Recover Password</a></p>
+              <input type="submit" class="btn" value="Sign In" name="signIn">
+            </form>
+            <p class="or">----------or--------</p>
+            <div class="icons">
+              <i class="fab fa-google"></i>
+              <i class="fab fa-facebook"></i>
+            </div>
+            <div class="links">
+              <p>Don't have an account yet?</p> <a id="signUpButton" style="font-size: 18px;">Sign Up</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Why Choose Parivahan?</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <img src="https://img.icons8.com/color/96/bus.png" alt="Bus Icon">
+        <h3>Comfort Rides</h3>
+        <p>Luxury seats, AC, WiFi & charging ports.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5246/5246221.png" alt="Time Icon">
+        <h3>On Time</h3>
+        <p>Always punctual. Always reliable.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://img.icons8.com/color/96/ticket.png" alt="Ticket Icon">
+        <h3>Easy Booking</h3>
+        <p>Quick & secure ticketing in seconds.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">“Best bus travel experience ever!”<br><span>- Meera P.</span></div>
+      <div class="testimonial-card">“Clean buses and helpful staff!”<br><span>- Ravi T.</span></div>
+      <div class="testimonial-card">“Easy booking and always on time.”<br><span>- Arjun M.</span></div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq">
+    <h2>FAQs</h2>
+    <details>
+      <summary>How do I book a ticket?</summary>
+      <p>Click on "Buy Your Ticket" and follow the steps.</p>
+    </details>
+    <details>
+      <summary>Can I cancel or reschedule?</summary>
+      <p>Yes, from your account dashboard.</p>
+    </details>
+    <details>
+      <summary>Are refunds available?</summary>
+      <p>Yes, based on our cancellation policy.</p>
+    </details>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Parivahan</h3>
+        <p>Reliable. Safe. Fast travel across India.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="booking.html">Service</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <p>Facebook | Instagram | Twitter</p>
+      </div>
+    </div>
+    <p class="copyright">© 2025 Parivahan. All rights reserved.</p>
+  </footer>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
+    });
+
+  </script>
+
+
+  <style>
+
+  </style>
+
+
+  <script>
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 400) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  </script>
+
+  <script>
+
+    let signUpButton = document.getElementById('signUpButton');
+    let signInButton = document.getElementById('signInButton');
+
+    let signInForm = document.getElementById('signIn');
+    let signUpForm = document.getElementById('signup');
+
+    signUpButton.addEventListener('click', function () {
+      signInForm.style.display = "none";
+      signUpForm.style.display = "block";
+    });
+
+    signInButton.addEventListener('click', function () {
+      signInForm.style.display = "block";
+      signUpForm.style.display = "none";
+    });
+
+  </script>
+
+
+</body>
+
+</html>
