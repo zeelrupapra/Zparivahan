@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bus Ticket Booking</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="booking.css">
+  <link rel="stylesheet" href="nav-bar.css">
+
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <!-- Centered logo -->
+    <div class="logo">Pari<span>vahan</span></div>
+
+    <!-- Hamburger icon (top right) -->
+    <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <!-- Desktop nav links -->
+    <nav style="display: flex; align-items: center; ">
+      <div class="links">
+        <div class="link"><a href="index.html">Home</a></div>
+        <div class="link"><a href="booking.html">Services</a></div>
+        <div class="link"><a href="contact.html">Contact</a></div>
+        <div class="link"><a href="#">Blog</a></div>
+      </div>
+    </nav>
+
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobileMenu" class="mobile-menu" style="display: none;">
+      <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+      <a href="booking.html" onclick="toggleMobileMenu()">Services</a>
+      <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+      <a href="#" onclick="toggleMobileMenu()">Blog</a>
+    </div>
+
+  </header>
+  <div class="header">
+    India's No. 1 Bus Ticket Booking Site
+  </div>
+
+  <div class="booking-box">
+    <form id="bookingForm">
+      <div class="row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input id="name" type="text" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel" required />
+        </div>
+        <div class="form-group">
+          <label for="date">Travel Date</label>
+          <input id="date" type="date" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group" style="flex: 1; position: relative;">
+          <label for="departure">Departure City (type or pick on map)</label>
+          <input id="departure" autocomplete="off" required />
+          <div id="departureSuggestions" class="suggestions" style="display:none;"></div>
+        </div>
+
+        <div class="form-group" style="flex: 1; position: relative;">
+          <label for="destination">Destination City (type or pick on map)</label>
+          <input id="destination" autocomplete="off" required />
+          <div id="destinationSuggestions" class="suggestions" style="display:none;"></div>
+        </div>
+      </div>
+
+      <div class="note">🗺 Click on the map: First = Departure, Second = Destination. Coordinates are auto-filled.</div>
+      <div id="map"></div>
+
+      <div class="btan">
+        <button type="submit" class="btn">Search Buses</button>
+      </div>
+
+    </form>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Parivahan</h3>
+        <p>Reliable. Safe. Fast travel across India.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="booking.html">Service</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Follow Us <span style="color: white;"> @zeel_patel_224</span></h4>
+        <br>
+
+        <div class="imgs">
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png"
+            class="fash">
+
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxy1JwE3SzdwP0toMc5_VANmOD_HFEH3Pww&s"
+            class="insta">
+
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+            class="google">
+        </div>
+        <p style="margin-top: 0px;">Facebook | Instagram | Google</p>
+      
+      </div>
+    </div>
+    <p class="copyright">© 2025 Parivahan. All rights reserved. Managed by Zeel Rupapara.</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+
+    window.addEventListener("scroll", function () {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 200) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+    document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+    const map = L.map('map').setView([22.3, 70.8], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    let depMarker = null, destMarker = null, line = null;
+
+    function drawLine() {
+      if (depMarker && destMarker) {
+        if (line) map.removeLayer(line);
+        line = L.polyline([depMarker.getLatLng(), destMarker.getLatLng()], {
+          color: '#ff4e4e',
+          weight: 3
+        }).addTo(map);
+      } else if (line) {
+        map.removeLayer(line);
+        line = null;
+      }
+    }
+
+    // Reverse geocode to get city name from lat,lng
+    async function reverseGeocode(lat, lon) {
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        const data = await res.json();
+        return data.address.city || data.address.town || data.address.village || data.address.county || data.display_name || '';
+      } catch {
+        return '';
+      }
+    }
+
+    // Update marker position and input field with reverse geocoding
+    async function updateMarkerInput(marker, input) {
+      const pos = marker.getLatLng();
+      const placeName = await reverseGeocode(pos.lat, pos.lng);
+      input.value = placeName || `${pos.lat.toFixed(4)}, ${pos.lng.toFixed(4)}`;
+      drawLine();
+    }
+
+    map.on('click', async e => {
+      const latlng = e.latlng;
+
+      if (!depMarker) {
+        depMarker = L.marker(latlng, { draggable: true }).addTo(map).bindPopup('Departure').openPopup();
+        await updateMarkerInput(depMarker, document.getElementById('departure'));
+        depMarker.on('dragend', async () => updateMarkerInput(depMarker, document.getElementById('departure')));
+      } else if (!destMarker) {
+        destMarker = L.marker(latlng, {
+          draggable: true,
+          icon: L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            iconSize: [25, 41]
+          })
+        }).addTo(map).bindPopup('Destination').openPopup();
+        await updateMarkerInput(destMarker, document.getElementById('destination'));
+        destMarker.on('dragend', async () => updateMarkerInput(destMarker, document.getElementById('destination')));
+        drawLine();
+      } else {
+        map.removeLayer(depMarker);
+        map.removeLayer(destMarker);
+        if (line) map.removeLayer(line);
+        depMarker = destMarker = line = null;
+        document.getElementById('departure').value = '';
+        document.getElementById('destination').value = '';
+      }
+    });
+
+    // Clear markers when input is manually changed
+    document.getElementById('departure').addEventListener('input', () => {
+      if (depMarker) {
+        map.removeLayer(depMarker);
+        depMarker = null;
+        if (line) {
+          map.removeLayer(line);
+          line = null;
+        }
+      }
+    });
+
+    document.getElementById('destination').addEventListener('input', () => {
+      if (destMarker) {
+        map.removeLayer(destMarker);
+        destMarker = null;
+        if (line) {
+          map.removeLayer(line);
+          line = null;
+        }
+      }
+    });
+
+    // -------- Autocomplete for Gujarat cities --------
+
+    async function searchPlaces(query) {
+      if (!query) return [];
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(
+          query
+        )}&viewbox=68.0,24.5,73.5,20.0&bounded=1&countrycodes=in`
+      );
+      const data = await res.json();
+      return data;
+    }
+
+    function createSuggestionItem(text, place, container, input, markerType) {
+      const div = document.createElement('div');
+      div.classList.add('suggestion-item');
+      div.textContent = text;
+      div.addEventListener('click', () => {
+        input.value = text;
+        container.style.display = 'none';
+
+        // Add or move marker on map
+        const lat = parseFloat(place.lat);
+        const lon = parseFloat(place.lon);
+
+        if (markerType === 'departure') {
+          if (depMarker) map.removeLayer(depMarker);
+          depMarker = L.marker([lat, lon], { draggable: true }).addTo(map).bindPopup('Departure').openPopup();
+          depMarker.on('dragend', async () => {
+            await updateMarkerInput(depMarker, input);
+          });
+          map.setView([lat, lon], 10);
+        } else {
+          if (destMarker) map.removeLayer(destMarker);
+          destMarker = L.marker([lat, lon], {
+            draggable: true,
+            icon: L.icon({
+              iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+              iconSize: [25, 41]
+            })
+          }).addTo(map).bindPopup('Destination').openPopup();
+          destMarker.on('dragend', async () => {
+            await updateMarkerInput(destMarker, input);
+          });
+          map.setView([lat, lon], 10);
+        }
+        drawLine();
+      });
+      container.appendChild(div);
+    }
+
+    function setupAutocomplete(inputId, suggestionsId, markerType) {
+      const input = document.getElementById(inputId);
+      const suggestions = document.getElementById(suggestionsId);
+
+      input.addEventListener('input', async () => {
+        const val = input.value.trim();
+        suggestions.innerHTML = '';
+        if (!val) {
+          suggestions.style.display = 'none';
+          return;
+        }
+
+        const places = await searchPlaces(val);
+        if (places.length === 0) {
+          suggestions.style.display = 'none';
+          return;
+        }
+
+        places.forEach(place => {
+          // Only show places in Gujarat by checking 'state' in address
+          if (place.address && place.address.state && place.address.state.toLowerCase().includes('gujarat')) {
+            const cityName =
+              place.address.city ||
+              place.address.town ||
+              place.address.village ||
+              place.display_name;
+            createSuggestionItem(cityName, place, suggestions, input, markerType);
+          }
+        });
+
+        if (suggestions.children.length > 0) {
+          suggestions.style.display = 'block';
+        } else {
+          suggestions.style.display = 'none';
+        }
+      });
+
+      // Hide suggestions when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!suggestions.contains(e.target) && e.target !== input) {
+          suggestions.style.display = 'none';
+        }
+      });
+    }
+
+    setupAutocomplete('departure', 'departureSuggestions', 'departure');
+    setupAutocomplete('destination', 'destinationSuggestions', 'destination');
+
+    // Form submission example
+    // document.getElementById("bookingForm").addEventListener("submit", (e) => {
+    //     e.preventDefault();
+    //     alert("Bus search submitted!");
+    //     // Normally redirect or fetch search results here
+    //   });
+
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent default form submission
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const departure = document.getElementById('departure').value.trim();
+      const destination = document.getElementById('destination').value.trim();
+      const travelDate = document.getElementById('date').value; // 👈 Gets the value of the date input
+
+      // Save data to localStorage
+      localStorage.setItem('name', name);
+      localStorage.setItem('email', email);
+      localStorage.setItem('phone', phone);
+      localStorage.setItem('departure', departure);
+      localStorage.setItem('destination', destination);
+      localStorage.setItem('travelDate', travelDate); // ✅ Stores the date
+
+      // Optional alert
+      alert(`Searching buses from ${departure} to ${destination} on ${travelDate}`);
+
+      // Navigate to next page
+      window.location.href = 'available.html';
+    });
+
+  </script>
+  <script src="nav-bar.js"></script>
+ </body>
+
+</html>

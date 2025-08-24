@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Confirm Ticket</title>
+  <link rel="stylesheet" href="nav-bar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="confirm-ticket.css">
+
+</head>
+
+<body>
+  <!-- Navbar -->
+
+  <header class="navbar" style="background-color:  #001f3f;">
+    <!-- Centered logo -->
+    <div class="logo">Pari<span>vahan</span></div>
+
+    <!-- Hamburger icon (top right) -->
+    <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <!-- Desktop nav links -->
+    <nav>
+      <div class="links">
+        <div class="link"><a href="index.html">Home</a></div>
+        <div class="link"><a href="booking.html">Services</a></div>
+        <div class="link"><a href="contact.html">Contact</a></div>
+        <div class="link"><a href="#">Blog</a></div>
+      </div>
+    </nav>
+    
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobileMenu" class="mobile-menu" style="display: none;">
+      <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+      <a href="booking.html" onclick="toggleMobileMenu()">Services</a>
+      <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+      <a href="#" onclick="toggleMobileMenu()">Blog</a>
+    </div>
+
+  </header>
+
+  <div class="container">
+    <h2>Confirm Your Ticket</h2>
+
+    <div class="info" id="busInfo" sty>Loading bus info...</div>
+    <div class="info" id="routeInfo">Loading route info...</div>
+    <h2>Choose Your Seat</h2>
+    <div class="seat-map" id="seatMap"></div>
+
+    <div class="price-info" id="priceInfo">Total Price: ₹0</div>
+
+    <form id="confirmForm">
+      <label for="payment">Select Payment Method</label>
+      <select id="payment" required>
+        <option value="" disabled selected>Select payment method</option>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Debit Card">Debit Card</option>
+        <option value="UPI">UPI</option>
+        <option value="Net Banking">Net Banking</option>
+        <option value="Cash On Board">Cash On Board</option>
+      </select>
+
+      <button type="submit" class="submit-btn">Confirm Booking</button>
+    </form>
+  </div>
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Parivahan</h3>
+        <p>Reliable. Safe. Fast travel across India.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="booking.html">Service</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Follow Us <span style="color: white;"> @zeel_patel_224</span></h4>
+        <br>
+        <div class="imgs">
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png"
+            class="fash">
+
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxy1JwE3SzdwP0toMc5_VANmOD_HFEH3Pww&s"
+            class="insta">
+
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+            class="google">
+        </div>
+        <p style="margin-top: 0px;">Facebook | Instagram | Google </p>
+      </div>
+    </div>
+    <p class="copyright">© 2025 Parivahan. All rights reserved. Managed by Zeel Rupapara.</p>
+  </footer>
+
+  <script>
+    const seatMap = document.getElementById('seatMap');
+    const busInfoDiv = document.getElementById('busInfo');
+    const routeInfoDiv = document.getElementById('routeInfo');
+    const priceInfo = document.getElementById('priceInfo');
+    const form = document.getElementById('confirmForm');
+
+    // Fetch saved data from localStorage
+    const busName = localStorage.getItem('selectedBus') || 'Default Bus';
+    const busPrice = parseFloat(localStorage.getItem('busPrice')) || 0.00; // default price
+    const departure = localStorage.getItem('departure') || 'Unknown Departure';
+    const destination = localStorage.getItem('destination') || 'Unknown Destination';
+
+    busInfoDiv.innerHTML = ` <span class="bus_name">Bus:</span> ${busName}`;
+    routeInfoDiv.innerHTML = ` <span class="bus_name">Route:</span>  ${departure} → ${destination}`;
+
+    const totalSeats = 40;
+    let selectedSeats = [];
+
+    // Generate random occupied seats (~30%)
+    const occupiedSeats = new Set();
+    while (occupiedSeats.size < 12) {
+      occupiedSeats.add(Math.floor(Math.random() * totalSeats) + 1);
+    }
+
+    // Update the total price based on selected seats
+    function updatePrice() {
+      let total = selectedSeats.length * busPrice;
+      priceInfo.textContent = `Total Price: ₹${total}`;
+    }
+
+    // Create a seat element for each seat number
+    function createSeat(number) {
+      const seat = document.createElement('div');
+      seat.classList.add('seat');
+      if (occupiedSeats.has(number)) {
+        seat.classList.add('occupied');
+        seat.title = 'Occupied';
+      }
+      else {
+        seat.classList.add('available');
+        seat.title = 'Available';
+        seat.addEventListener('click', () => {
+          if (selectedSeats.includes(number)) {
+            selectedSeats = selectedSeats.filter(s => s !== number);
+            seat.classList.remove('selected');
+          } else {
+            selectedSeats.push(number);
+            seat.classList.add('selected');
+          }
+          updatePrice();
+        });
+      }
+      seat.textContent = number;
+      return seat;
+    }
+
+    // Initialize seats
+    for (let i = 1; i <= totalSeats; i++) {
+      seatMap.appendChild(createSeat(i));
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (selectedSeats.length === 0) {
+        alert('Please select at least one seat.');
+        return;
+      }
+      let total = selectedSeats.length * busPrice;
+      localStorage.setItem('ticketTotalPrice', total); // <-- Save to localStorage
+
+      localStorage.setItem('numberOfPassengers', selectedSeats.length);
+
+      const paymentMethod = form.payment.value;
+      if (!paymentMethod) {
+        alert('Please select a payment method.');
+        return;
+      }
+
+      alert(`Ticket booked successfully!\n
+Bus: ${busName}
+Route: ${departure} → ${destination}
+Seat No: ${selectedSeats.join(', ')}
+Total Price: ₹${selectedSeats.length * busPrice}
+Payment Method: ${paymentMethod}
+      `);
+      window.location.href = "ticket.html";
+
+      // Reset selections and form
+      selectedSeats = [];
+      document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove('selected'));
+      updatePrice();
+      form.reset();
+    });
+
+    // Initial price update
+    updatePrice();
+  </script>
+  <script src="nav-bar.js"></script>
+
+</body>
+
+</html>

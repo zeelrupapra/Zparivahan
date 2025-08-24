@@ -1,0 +1,180 @@
+<DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Available Buses</title>
+    <link rel="stylesheet" href="nav-bar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="available.css">
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+
+    <header class="navbar" style="background-color:  #001f3f;;">
+      <!-- Centered logo -->
+      <div class="logo">Pari<span>vahan</span></div>
+
+      <!-- Hamburger icon (top right) -->
+      <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <!-- Desktop nav links -->
+      <nav>
+        <div class="links">
+          <div class="link"><a href="index.html">Home</a></div>
+          <div class="link"><a href="booking.html">Services</a></div>
+          <div class="link"><a href="contact.html">Contact</a></div>
+          <div class="link"><a href="#">Blog</a></div>
+        </div>
+      </nav>
+
+
+      <!-- Mobile Menu (Hidden by default) -->
+      <div id="mobileMenu" class="mobile-menu" style="display: none;">
+        <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+        <a href="booking.html" onclick="toggleMobileMenu()">Services</a>
+        <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+        <a href="#" onclick="toggleMobileMenu()">Blog</a>
+      </div>
+
+    </header>
+
+    <div class="container" style="margin-top: 100px;">
+      <div class="search-summary">
+        Showing buses from <strong id="fromCity"></strong> to <strong id="toCity"></strong> on <strong
+          id="onDate">2025‑08‑05</strong>. Total <strong id="count">0</strong> buses found.
+      </div>
+
+      <div id="busList">
+        <!-- Bus cards will be added here -->
+      </div>
+    </div>
+
+
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <h3><span style="color:#fff">Pari</span>vahan</h3>
+          <p>Reliable. Safe. Fast travel across India.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="booking.html">Service</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Follow Us <span style="color: white;"><a href="https://instagram.com/zeel_patel_224">
+                @zeel_patel_224</a></span></h4>
+          <br>
+
+          <div class="imgs">
+            <img
+              src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png"
+              class="fash">
+
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxy1JwE3SzdwP0toMc5_VANmOD_HFEH3Pww&s"
+              class="insta">
+
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+              class="google">
+          </div>
+          <p style="margin-top: 0px;">Facebook | Instagram | Google </p>
+        </div>
+
+      </div>
+      <p class="copyright">© 2025 Parivahan. All rights reserved. Managed by Zeel Rupapara.</p>
+    </footer>
+
+
+    <script>
+      // Example bus data — replace or fetch from your backend
+      const buses = [
+        { name: 'Volvo AC Sleeper', operator: 'GSRTC', departureTime: '08:00', arrivalTime: '12:30', duration: '4h 30m', seats: 12, amenities: ['WiFi', 'Power', 'Blanket'], price: 450, number: 'GJ02-KZ-0424' },
+        { name: 'Deluxe Seater (AC)', operator: 'Private Express', departureTime: '09:15', arrivalTime: '13:45', duration: '4h 30m', seats: 5, amenities: ['WiFi', 'Power'], price: 550, number: 'GJ01-HJ-5843' },
+        { name: 'Super Luxury', operator: 'Shree Travels', departureTime: '10:00', arrivalTime: '14:15', duration: '4h 15m', seats: 8, amenities: ['WiFi', 'AC', 'Charging Port'], price: 600, number: 'GJ03-AR-6670' },
+        { name: 'Rajdhani AC', operator: 'Rajdhani Travels', departureTime: '11:30', arrivalTime: '16:00', duration: '4h 30m', seats: 7, amenities: ['AC', 'Blanket'], price: 500, number: 'GJ11-JN-1111' },
+        { name: 'Ordinary', operator: 'GSRTC', departureTime: '13:30', arrivalTime: '15:00', duration: '2h 30m', seats: 20, amenities: ['Charger port'], price: 400, number: 'GJ10-NK-3388' }
+
+      ];
+
+      // Get info from localStorage or fallback
+      const fromCity = localStorage.getItem('departure') || 'Surat';
+      const toCity = localStorage.getItem('destination') || 'Ahmedabad';
+      const travelDate = localStorage.getItem('travelDate') || '2025-08-05';
+
+      document.getElementById('fromCity').textContent = fromCity;
+      document.getElementById('toCity').textContent = toCity;
+      document.getElementById('onDate').textContent = travelDate;
+
+      const busListDiv = document.getElementById('busList');
+
+      function renderBuses() {
+        busListDiv.innerHTML = '';
+        buses.forEach((bus, i) => {
+          const busCard = document.createElement('div');
+          busCard.className = 'bus-card';
+
+          busCard.innerHTML = `
+          <div class="bus-info">
+            <h3>${bus.name}</h3>
+            <p>Operator: ${bus.operator}</p>
+            <p>Departure: ${bus.departureTime} | Arrival: ${bus.arrivalTime} (${bus.duration})</p>
+            <p>Seats available: ${bus.seats} | Amenities: ${bus.amenities.join(', ')}</p>
+          </div>
+          <div class="bus-meta">
+            <div class="price">₹${bus.price}</div>
+            <button data-index="${i}">Book Now</button>
+          </div>
+        `;
+
+          busListDiv.appendChild(busCard);
+        });
+
+        document.getElementById('count').textContent = buses.length;
+
+        // Add event listeners for booking
+        document.querySelectorAll('.bus-meta button').forEach(button => {
+          button.addEventListener('click', e => {
+            const index = e.target.getAttribute('data-index');
+            const bus = buses[index];
+
+            if (bus.seats === 0) {
+              alert('Sorry, no seats available for this bus.');
+              return;
+            }
+
+            // Save selected bus info to localStorage for confirm-ticket page
+            localStorage.setItem('selectedBus', bus.name);
+            localStorage.setItem('busPrice', bus.price);
+            localStorage.setItem('departure', fromCity);
+            localStorage.setItem('destination', toCity);
+            localStorage.setItem('travelDate', travelDate);
+            localStorage.setItem('availableSeats', bus.seats);
+            localStorage.setItem('Operator', bus.operator);
+            localStorage.setItem('departureTime', bus.departureTime);
+
+            // Redirect to confirm ticket page
+            window.location.href = 'confirm-ticket.html';
+          });
+        });
+      }
+
+      renderBuses();
+    </script>
+    <script src="nav-bar.js"></script>
+
+  </body>
+  </html>

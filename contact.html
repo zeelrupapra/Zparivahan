@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="nav-bar.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f7f8fc, #e6f7ff);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+         /* background-image: url('https://static.vecteezy.com/system/resources/thumbnails/023/380/284/small_2x/bus-driving-on-the-road-at-night-with-glowing-neon-lights-motion-blur-background-generative-ai-photo.jpeg');
+         */ background-image: url('https://wallpapers.com/images/featured/blue-hd-background-v8iznbqgjjkmmnjc.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            font-size: 36px;
+        }
+
+        .contact-section {
+            max-width: 1000px;
+            background: white;
+            margin: -80px auto 40px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 30px;
+            color: #0095ff;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #0095ff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 149, 255, 0.3);
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .row .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #0095ff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 15px rgba(0, 149, 255, 0.5);
+        }
+
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <!-- Centered logo -->
+        <div class="logo">Pari<span>vahan</span></div>
+
+        <!-- Hamburger icon (top right) -->
+        <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Desktop nav links -->
+        <nav style="display: flex; align-items: center; ">
+            <div class="links">
+                <div class="link"><a href="index.html">Home</a></div>
+                <div class="link"><a href="booking.html">Services</a></div>
+                <div class="link"><a href="#">Contact</a></div>
+                <div class="link"><a href="contact.html">Blog</a></div>
+            </div>
+        </nav>
+
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="mobile-menu" style="display: none;">
+            <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+            <a href="booking.html" onclick="toggleMobileMenu()">Services</a>
+            <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+            <a href="#" onclick="toggleMobileMenu()">Blog</a>
+        </div>
+
+    </header>
+
+    <div class="header">
+        <h1>Contact Us</h1>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>We'd love to hear from you!</h2>
+            <form action="sendmail.php" method="POST" class="contact-form">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" required placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" name="email" id="email" required placeholder="you@example.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" name="subject" id="subject" required placeholder="Message subject">
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea name="message" id="message" rows="6" required
+                        placeholder="Write your message here..."></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3><span style="color: #fff;">Pari</span>vahan</h3>
+                <p>Reliable. Safe. Fast travel across India.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html">Service</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Follow Us <span style="color: white;"><a href="https://instagram.com/zeel_patel_224"> @zeel_patel_224</a></span></h4>
+                <br>
+
+                <div class="imgs">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png"
+                        class="fash">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxy1JwE3SzdwP0toMc5_VANmOD_HFEH3Pww&s"
+                        class="insta">
+
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+                        class="google">
+                </div>
+                <p style="margin-top: 0px;">Facebook | Instagram | Google</p>
+
+            </div>
+        </div>
+        <p class="copyright">© 2025 Parivahan. All rights reserved. Managed by Zeel Rupapara.</p>
+    </footer>
+
+    <script> window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 150) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+    <script src="nav-bar.js"></script>
+</body>
+
+</html>

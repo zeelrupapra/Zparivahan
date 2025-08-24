@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Bus Ticket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav-bar.css">
+  <link rel="stylesheet" href="ticket.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar" style="background-color:#001f3f ; visibility: hidden;">
+    <div class="logo">Pari<span>vahan</span></div>
+    <nav>
+
+      <div class="links">
+        <div class="link"><a href="index.html">Home</a></div>
+        <div class="link"><a href="booking.html">Service</a></div>
+        <div class="link"><a href="">Contact</a></div>
+        <div class="link"><a href="">Blog</a></div>
+      </div>
+    </nav>
+
+    <div class="buttons">
+      <div class="nav-btn">
+        <button id="signInButton" onclick="window.location.href='web.html'">Login</button>
+      </div>
+    </div>
+
+  </header>
+
+  <div class="ticket-container" style="margin-top: 30px;margin-bottom: 50px;">
+
+    <div class="ticket-header">
+      <div class="header-text">
+        <h2>🎫 Parivahan E-Ticket</h2>
+        <p>Your journey is confirmed. Safe travels!</p>
+      </div>
+
+      <div class="header-qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=ParivahanTicket&size=120x120" alt="QR Code"
+          id="qrcodeimg">
+      </div>
+
+    </div>
+
+    <div class="ticket-body">
+      <div class="info-row">
+        <div class="info-label">Name:</div>
+        <div class="info-value" id="userName"></div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-label">Phone:</div>
+        <div class="info-value" id="userPhone"></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">From:</div>
+        <div class="info-value" id="userDeparture"></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">To:</div>
+        <div class="info-value" id="userDestination"></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Date:</div>
+        <div class="info-value" id="userDate"></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Bus Number:</div>
+        <div class="info-value" id="busNumber"></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Operator:</div>
+        <div class="info-value" id="operatorName"></div>
+      </div>
+      <div class="info-row">
+        <div class="info-label">Booking Time:</div>
+        <div class="info-value" id="bookingTime"></div>
+      </div>
+
+      <div class="price-box">
+        <div class="info-row">
+          <div class="info-label">Price per Person:</div>
+          <div class="info-value">₹<span id="pricePerPerson"></span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Total Persons:</div>
+          <div class="info-value">x<span id="numPersons"></span></div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Total Price:</div>
+          <div class="info-value highlight">₹<span id="totalPrice"></span></div>
+        </div>
+      </div>
+
+      <div class="barcode">
+        <div class="tag">Scan for Details</div>
+      </div>
+
+      <div class="footer-note">
+        Please carry a valid ID. Contact support@parivahan.in for help.<br />
+        Thank you for choosing <strong>Parivahan</strong>!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const get = (key, fallback = "N/A") => localStorage.getItem(key) || fallback;
+
+    // Load details from localStorage
+    document.getElementById('userName').textContent = get('name');
+    //  document.getElementById('userEmail').textContent = get('email');
+    document.getElementById('userPhone').textContent = get('phone');
+    document.getElementById('userDeparture').textContent = get('departure');
+    document.getElementById('userDestination').textContent = get('destination');
+    document.getElementById('userDate').textContent = get('travelDate');
+    document.getElementById('busNumber').textContent = get('busNumber', 'MH12-XZ-4321');
+    document.getElementById('operatorName').textContent = get('Operator') || 'GSRTC';
+
+    // Booking time
+    const now = new Date();
+    document.getElementById('bookingTime').textContent = now.toLocaleString();
+
+    // Price & Person
+    const price = parseFloat(get('busPrice', 'Error'));
+    const persons = parseInt(get('numberOfPassengers', 'Error'));
+    document.getElementById('pricePerPerson', 'Error').textContent = price.toFixed(2);
+    document.getElementById('numPersons', 'Error').textContent = persons;
+    document.getElementById('totalPrice', 'Error').textContent = get('ticketTotalPrice');//(price * persons).toFixed(2);
+
+    //QR Code
+    let name = get('name');
+    let busno = get('busNumber', 'GJ03-XZ-4321');
+    let departure = get('departure');
+    let destination = get('destination');
+    let T_price = get('ticketTotalPrice')
+
+    document.getElementById('qrcodeimg');
+
+    const url = ("https://api.qrserver.com/v1/create-qr-code/?data="
+      + "    %0A------------------------------"
+      + "    %0A|                 Bus Booking                     |"
+      + "    %0A------------------------------"
+      + "    %0A Name    :     " + name
+      + "    %0A Bus        :    " + busno
+      + "    %0A From     :     " + departure
+      + "    %0A To          :     " + destination
+      + "    %0A Price     :       " + T_price
+      + "    %0A------------------------------"
+      + "    %0A|                   PariVahan                       |"
+      + "    %0A------------------------------"
+      + "&size=200x200"
+    );
+
+    qrcodeimg.setAttribute('src', url);
+
+  </script>
+
+</body>
+
+
+
+<!-- Footer -->
+<footer style="width: 100%;">
+  <div class="footer-grid">
+
+    <div>
+      <h3>Parivahan</h3>
+      <p>Reliable. Safe. Fast travel across India.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="booking.html">Service</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Follow Us <span style="color: white;"> @zeel_patel_224</span></h4>
+      <br>
+      <div class="imgs">
+        <img
+          src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png"
+          class="fash">
+
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxy1JwE3SzdwP0toMc5_VANmOD_HFEH3Pww&s"
+          class="insta">
+
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+          class="google">
+      </div>
+      <p style="margin-top: 0px;">Facebook | Instagram | Google </p>
+    </div>
+  </div>
+  <p class="copyright">© 2025 Parivahan. All rights reserved. Managed by Zeel Rupapara.</p>
+</footer>
+
+</html>

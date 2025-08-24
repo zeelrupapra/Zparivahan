@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parivahan - Bus Booking</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Pari<span>vahan</span></div>
+
+        <!-- Hamburger icon (top right) -->
+        <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Desktop nav links -->
+        <nav>
+            <div class="links" style="margin: 0px;">
+                <div class="link"><a href="index.html">Home</a></div>
+                <div class="link"><a href="booking.html">Service</a></div>
+                <div class="link"><a href="contact.html">Contact</a></div>
+                <div class="link"><a href="">Blog</a></div>
+            </div>
+
+        </nav>
+        <div class="buttons" id="register">
+            <div class="nav-btn"><button id="login">Login</button></div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobileMenu" class="mobile-menu" style="display: none;">
+            <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+            <a href="booking.html" onclick="toggleMobileMenu()">Services</a>
+            <a href="contact.html" onclick="toggleMobileMenu()">Contact</a>
+            <a href="#" onclick="toggleMobileMenu()">Blog</a>
+        </div>
+
+
+    </header>
+
+    <!-- 🔐 AUTH MODAL (Popup for Login/Sign-Up) -->
+    <div id="auth-modal" class="auth-modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+
+            <!-- Sign In -->
+            <div class="form-box" id="signIn" style="display: none;">
+                <div class="form-title">
+                    <h3>Sign In</h3>
+                </div>
+                <form method="post" action="index.html">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <label>Password</label>
+                    </div>
+                    <p class="recover"><a href="#">Recover Password</a></p>
+                    <input type="submit" class="btn" value="Sign In" name="signIn">
+                </form>
+                <p class="or">----------or--------</p>
+                <div class="icons">
+                    <i class="fab fa-google"></i>
+                    <i class="fab fa-facebook"></i>
+                </div>
+                <div class="links">
+                    <p>Don't have an account yet?</p> <a id="signUpButton" style="font-size: 18px;">Sign Up</a>
+                </div>
+            </div>
+
+            <!-- Sign Up -->
+            <div class="form-box" id="signup" style="display: none;">
+                <div class="form-title">
+                    <h3>Register</h3>
+                </div>
+                <form method="post" action="index.html">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="fName" placeholder="First Name" required>
+                        <label>First Name</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <label>Password</label>
+                    </div>
+                    <input type="submit" class="btn" value="Sign Up" name="signUp">
+                </form>
+                <p class="or">----------or--------</p>
+                <div class="icons">
+                    <i class="fab fa-google"></i>
+                    <i class="fab fa-facebook"></i>
+                </div>
+                <div class="links">
+                    <p>Already have an account?</p>
+                    <a id="signInButton" style="font-size: 18px;">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Hero Section with Swiper -->
+    <section class="hero-slider">
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <img
+                        src="https://static.vecteezy.com/system/resources/thumbnails/029/315/458/small_2x/moving-forward-bus-travels-on-road-embracing-travel-time-ambiance-ai-generated-photo.jpg">
+                </div>
+
+                <div class="swiper-slide"><img
+                        src="https://img.freepik.com/premium-photo/truck-bus-electric-car-future-rides-road-tunnel-generative-ai_618582-373.jpg"
+                        alt="Bus 2">
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="https://img.freepik.com/premium-photo/truck-bus-electric-car-future-rides-road-tunnel-generative-ai_618582-373.jpg"
+                        alt="Bus 2">
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+        <!-- Swiper Controls -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+
+        <div class="hero-wrapper">
+            <div class="hero-inner">
+
+                <div class="content">
+                    <div class="hero-left">
+                        <h1>Welcome to</h1>
+                        <h1>Pari<span>vahan</span></h1>
+                        <p>Zeel bus booking welcomes you and wishes you a happy journey. Give your feedback or
+                            experience with Zeel
+                            Bus Booking.</p>
+                        <div class="main-btn" onclick="window.location.href='booking.html'">
+                            <button>Buy Your Ticket</button>
+                        </div>
+                    </div>
+
+                </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Why Choose Parivahan?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="https://img.icons8.com/color/96/bus.png" alt="Bus Icon">
+                <h3>Comfort Rides</h3>
+                <p>Luxury seats, AC, WiFi & charging ports.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5246/5246221.png" alt="Time Icon">
+                <h3>On Time</h3>
+                <p>Always punctual. Always reliable.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://img.icons8.com/color/96/ticket.png" alt="Ticket Icon">
+                <h3>Easy Booking</h3>
+                <p>Quick & secure ticketing in seconds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">“Best bus travel experience ever!”<br><span>- Meera P.</span></div>
+            <div class="testimonial-card">“Clean buses and helpful staff!”<br><span>- Ravi T.</span></div>
+            <div class="testimonial-card">“Easy booking and always on time.”<br><span>- Arjun M.</span></div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2>FAQs</h2>
+        <details>
+            <summary>How do I book a ticket?</summary>
+            <p>Click on "Buy Your Ticket" and follow the steps.</p>
+        </details>
+        <details>
+            <summary>Can I cancel or reschedule?</summary>
+            <p>Yes, from your account dashboard.</p>
+        </details>
+        <details>
+            <summary>Are refunds available?</summary>
+            <p>Yes, based on our cancellation policy.</p>
+        </details>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3>Parivahan</h3>
+                <p>Reliable. Safe. Fast travel across India.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html">Service</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <div class="imgs">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/018/930/698/small/facebook-logo-facebook-icon-transparent-free-png.png"
+                        class="fash">
+
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxy1JwE3SzdwP0toMc5_VANmOD_HFEH3Pww&s"
+                        class="insta">
+
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png"
+                        class="google">
+                </div>
+                <p style="margin-top: 0px;">Facebook | Instagram | Google </p>
+            </div>
+        </div>
+        <p class="copyright">© 2025 Parivahan. All rights reserved.</p>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
+        });
+
+    </script>
+
+
+    <script src="nav-bar.js"></script>
+
+
+    <script>
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 400) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+
+    <style>
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            /* ✅ Make it fixed */
+            display: flex;
+            flex-direction: row;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            transition: background 0.4s ease, box-shadow 0.3s ease;
+            color: white;
+        }
+
+        .navbar.scrolled {
+            background: #001f3f;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #00aaff;
+        }
+
+        .navbar nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+
+        nav .links {
+            display: flex;
+        }
+
+        .links {
+            display: flex;
+            width: 100%;
+            font-size: 16px;
+            justify-content: center;
+            align-items: baseline;
+            gap: 10px;
+            font-weight: bold;
+            color: #d5f8ff;
+        }
+
+        nav .links .link a {
+            position: relative;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 15px;
+            transition: 0.3linear;
+        }
+
+        nav .links .link a::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 3px;
+            background-color: rgb(7, 113, 219);
+            transition: 0.3s linear;
+        }
+
+        nav .links .link a:hover::before,
+        nav .links .link a:hover {
+            width: 100%;
+            color: rgb(7, 113, 219);
+
+            text-shadow: 0 0 40px rgba(0, 206, 255, 1);
+
+        }
+
+        nav .buttons {
+            display: flex;
+            width: 250px;
+            height: 10vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav.buttons.nav-btn {
+            margin: 0 5px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .buttons .nav-btn button {
+            width: 150px;
+            height: 40px;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: white;
+            border-radius: 8px;
+            background-color: rgba(7, 113, 219, 0.945);
+            box-shadow: 0 0 40px rgba(3, 188, 234, 0.948);
+            transition: 0.2s linear;
+        }
+
+        .buttons .nav-btn button:hover {
+            color: rgb(7, 113, 219);
+            background-color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            /* space between links and login button */
+        }
+
+
+        /* Hamburger Top Right */
+        .hamburger {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background: white;
+            margin: 4px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Hamburger to X */
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+
+        /* Mobile Styling */
+        @media (max-width: 768px) {
+            nav .links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+                width: 10%;
+                width: 30px;
+            }
+
+            .buttons {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .buttons .nav-btn {
+                width: 90%;
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+                padding-bottom: 0;
+            }
+
+            .buttons .nav-btn button {
+                width: 90%;
+                max-width: 190px;
+                min-width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                border-radius: 8px;
+                margin-bottom: 4px;
+            }
+
+            .logo {
+                display: flex;
+                width: 50%;
+                align-items: end;
+                justify-content: center;
+            }
+
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: #001f3fd6;
+                backdrop-filter: blur(9px);
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                padding: 20px 0;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                z-index: 998;
+                gap: 15px;
+            }
+
+            .mobile-menu a {
+                color: white;
+                font-size: 18px;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .mobile-menu a:hover {
+                color: #00aaff;
+            }
+        }
+    </style>
+
+    <style>
+
+    </style>
+    <script>
+        const signUpButton = document.getElementById('signUpButton');
+        const signInButton = document.getElementById('signInButton');
+        const login = document.getElementById('login');
+        const closeModal = document.getElementById('closeModal');
+
+        const signInForm = document.getElementById('signIn');
+        const signUpForm = document.getElementById('signup');
+        const authModal = document.getElementById('auth-modal');
+
+        // Open modal and show sign-in form
+        login.addEventListener('click', function () {
+            authModal.style.display = "flex";
+            signInForm.style.display = "block";
+            signUpForm.style.display = "none";
+            login.style.visibility = "hidden";
+        });
+
+        // Switch to sign up
+        signUpButton.addEventListener('click', function () {
+            signInForm.style.display = "none";
+            signUpForm.style.display = "block";
+        });
+
+        // Switch to sign in
+        signInButton.addEventListener('click', function () {
+            signUpForm.style.display = "none";
+            signInForm.style.display = "block";
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function () {
+            authModal.style.display = "none";
+            login.style.visibility = "visible";
+        });
+
+        // Optional: Close modal on outside click
+        window.addEventListener('click', function (e) {
+            if (e.target === authModal) {
+                authModal.style.display = "none";
+                login.style.visibility = "visible";
+            }
+        });
+    </script>
+</body>
+
+</html>
